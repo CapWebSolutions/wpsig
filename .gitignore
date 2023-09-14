@@ -108,4 +108,4 @@ Thumbs.db
 
 # track these mu-plugins, plugins, and themes
 !wp-content/themes/lifestyle-pro/
-!wp-content/plugins/wordpress-sig-core-functionality/
+!wp-content/plugins/pacs-wordpress-sig-core-functionality/
