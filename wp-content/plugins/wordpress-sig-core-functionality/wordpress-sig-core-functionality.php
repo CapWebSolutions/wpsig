@@ -33,14 +33,6 @@ include_once( CORE_FUNCTION_DIR . '/lib/functions/general.php' );
 // Footer customization
 include_once( CORE_FUNCTION_DIR . '/lib/functions/core-footer.php' );
 
-// Metaboxes
-//include_once( CORE_FUNCTION_DIR . '/lib/functions/post-types.php' );
-
-// Taxonomies
-//include_once( CORE_FUNCTION_DIR . '/lib/functions/taxonomies.php' );
-
-// Metaboxes
-//include_once( CORE_FUNCTION_DIR . '/lib/functions/metaboxes.php' );
 
 
 
