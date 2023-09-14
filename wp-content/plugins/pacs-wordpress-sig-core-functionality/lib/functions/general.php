@@ -84,91 +84,6 @@ function be_remove_menus () {
 }
 add_action( 'admin_menu', 'be_remove_menus' );
 
-/**
- * Customize Admin Bar Items
- * @since 1.0.0
- * @link http://wp-snippets.com/addremove-wp-admin-bar-links/
- */
-function be_admin_bar_items() {
-	global $wp_admin_bar;
-	$wp_admin_bar->remove_menu( 'new-link', 'new-content' );
-}
-add_action( 'wp_before_admin_bar_render', 'be_admin_bar_items' );
-
-
-/**
- * Customize Menu Order
- * @since 1.0.0
- *
- * @param array $menu_ord. Current order.
- * @return array $menu_ord. New order.
- *
- */
-function be_custom_menu_order( $menu_ord ) {
-	if ( !$menu_ord ) return true;
-	return array(
-		'index.php', // this represents the dashboard link
-		'edit.php?post_type=page', //the page tab
-		'edit.php', //the posts tab
-		'edit-comments.php', // the comments tab
-		'upload.php', // the media manager
-    );
-}
-//add_filter( 'custom_menu_order', 'be_custom_menu_order' );
-//add_filter( 'menu_order', 'be_custom_menu_order' );
-
-/**
- * Pretty Printing
- *
- * @author Chris Bratlien
- *
- * @param mixed
- * @return null
- */
-function be_pp( $obj, $label = '' ) {
-
-	$data = json_encode(print_r($obj,true));
-    ?>
-    <style type="text/css">
-      #bsdLogger {
-      position: absolute;
-      top: 30px;
-      right: 0px;
-      border-left: 4px solid #bbb;
-      padding: 6px;
-      background: white;
-      color: #444;
-      z-index: 999;
-      font-size: 1.25em;
-      width: 400px;
-      height: 800px;
-      overflow: scroll;
-      }
-    </style>
-    <script type="text/javascript">
-      var doStuff = function(){
-        var obj = <?php echo $data; ?>;
-        var logger = document.getElementById('bsdLogger');
-        if (!logger) {
-          logger = document.createElement('div');
-          logger.id = 'bsdLogger';
-          document.body.appendChild(logger);
-        }
-        ////console.log(obj);
-        var pre = document.createElement('pre');
-        var h2 = document.createElement('h2');
-        pre.innerHTML = obj;
-
-        h2.innerHTML = '<?php echo addslashes($label); ?>';
-        logger.appendChild(h2);
-        logger.appendChild(pre);
-      };
-      window.addEventListener ("DOMContentLoaded", doStuff, false);
-
-    </script>
-    <?php
-}
-
 //
 // * Customize search form input box text
 // * Ref: https://my.studiopress.com/snippets/search-form/
@@ -186,3 +101,27 @@ function c8d_exclude_category_rss_feed( $query ) {
   }
 }
 add_action( 'pre_get_posts', 'c8d_exclude_category_rss_feed' );
+
+// display featured post thumbnails in WordPress feeds
+function wcs_post_thumbnails_in_feeds( $content ) {
+  global $post;
+  if( has_post_thumbnail( $post->ID ) ) {
+      $content = '<p>' . get_the_post_thumbnail( $post->ID ) . '</p>' . $content;
+  }
+  return $content;
+}
+add_filter( 'the_excerpt_rss', 'wcs_post_thumbnails_in_feeds' );
+add_filter( 'the_content_feed', 'wcs_post_thumbnails_in_feeds' );
+
+
+// Dissable core auto update notices if sucessful.
+add_filter( 'auto_core_update_send_email', 'capweb_stop_auto_update_emails', 10, 4 );
+function capweb_stop_update_emails( $send, $type, $core_update, $result ) {
+if ( ! empty( $type ) && $type == 'success' ) {
+	return false;
+}
+return true;
+}
+// Dissable theme and plugin auto update notices.
+add_filter( 'auto_plugin_update_send_email', '__return_false' );
+add_filter( 'auto_theme_update_send_email', '__return_false' );
