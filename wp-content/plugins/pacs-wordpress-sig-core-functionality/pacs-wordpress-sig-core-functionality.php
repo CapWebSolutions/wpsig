@@ -3,7 +3,7 @@
  * Plugin Name: PACS WordPress SIG Core Functionality
  * Plugin URI: https://github.com/capwebsolutions/wpsig
  * Description: This contains all your site's core functionality so that it is theme independent. Customized for wpsig.pacsnet.org
- * Version: 1.0.0
+ * Version: 2.0.0
  * Author: Matt Ryan [Cap Web Solutions]
  * Author URI: http://www.capwebsolutions.com
  *
@@ -32,9 +32,3 @@ include_once( CORE_FUNCTION_DIR . '/lib/functions/general.php' );
 
 // Footer customization
 include_once( CORE_FUNCTION_DIR . '/lib/functions/core-footer.php' );
-
-
-
-
-
-
