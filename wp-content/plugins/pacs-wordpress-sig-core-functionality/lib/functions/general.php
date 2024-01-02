@@ -125,3 +125,14 @@ return true;
 // Dissable theme and plugin auto update notices.
 add_filter( 'auto_plugin_update_send_email', '__return_false' );
 add_filter( 'auto_theme_update_send_email', '__return_false' );
+
+add_shortcode('AffiliateDisclaimer', 'capweb_affiliate_disclaimer');
+/**
+ * Create shortcode and set content for affiliate disclosure.
+ *
+ * @author Matt Ryan <http://www.mattryan.co>
+ * @since 1.0.0
+ */
+function capweb_affiliate_disclaimer() {
+	    return '<em><small>Disclaimer:  Some of the off-site links referenced on this site are what is referred to as an affiliate link. If you choose to purchase or use the product or service through that link, the post author will get a small referral fee from the service or product provider. Your price is the same whether or not you use the affiliate link. </small></em>';
+}
