@@ -116,7 +116,7 @@ add_filter( 'the_content_feed', 'wcs_post_thumbnails_in_feeds' );
 
 // Dissable core auto update notices if sucessful.
 add_filter( 'auto_core_update_send_email', 'capweb_stop_auto_update_emails', 10, 4 );
-function capweb_stop_update_emails( $send, $type, $core_update, $result ) {
+function capweb_stop_auto_update_emails( $send, $type, $core_update, $result ) {
 if ( ! empty( $type ) && $type == 'success' ) {
 	return false;
 }
